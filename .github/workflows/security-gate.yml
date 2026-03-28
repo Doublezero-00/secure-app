@@ -1,0 +1,23 @@
+name: DevSecOps Security Scan
+
+on:
+  push:
+    branches: ["main", "master"]
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code (Checkout)
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Security Audit
+        run: npm audit --audit-level=high
